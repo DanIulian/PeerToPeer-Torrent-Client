@@ -1,0 +1,76 @@
+<project name="PeerToPeer-Application-Architecture" default="build" basedir=".">
+	<description>Peer To Peer Application Torrent</description>
+	<property name="src" location="src"/>
+	<property name="logs" location="logs" />
+	<property name="build" location="classes"/>
+ 
+	<target name="init">
+		<!-- Create the time stamp -->
+		<tstamp/>
+		<!-- Create the build directory structure used by compile -->
+		<mkdir dir="${build}"/>
+		<copy file="logs/log4j.properties" todir="${build}"/>
+	</target>
+	
+	<target name="build" depends="init" description="compile the source " >
+		<!-- Compile the java code from ${src} into ${build} -->
+		<javac srcdir="${src}" destdir="${build}" includeantruntime="false">
+			<classpath>
+				<pathelement location="lib/log4j-1.2.12.jar"/>
+				<pathelement path="${java.class.path}"/>
+			</classpath>
+		</javac>
+	</target>
+	
+	<target name="clean" description="clean up" >
+	    <!-- Delete the ${build} and ${dist} directory trees -->
+	    <delete dir="${build}"/> 
+	</target>
+ 
+	<target name="run-server" depends="build">
+	    <java fork="true" classname="central_node_pkg.MainServer">
+			<arg value="7008"/>
+			<classpath> 
+				<pathelement location="lib/log4j-1.2.12.jar"/> 
+				<pathelement path="classes"/>
+			</classpath>
+		</java>
+ 	</target>
+ 	
+ 	<target name="run-client1" depends="build">
+		<java fork="true" classname="test.TestClient1">
+			<arg value="localhost"/>
+			<arg value="7008"/>
+			<arg value="7089"/>
+			<classpath> 
+				<pathelement location="lib/log4j-1.2.12.jar"/> 
+				<pathelement path="classes"/>
+			</classpath>
+		</java>
+	</target>
+	
+	<target name="run-client2" depends="build">		
+		<java fork="true" classname="test.TestClient2">
+			<arg value="localhost"/>
+			<arg value="7008"/>
+			<arg value="7099"/>
+			<classpath> 
+				<pathelement location="lib/log4j-1.2.12.jar"/> 
+				<pathelement path="classes"/>
+			</classpath>
+		</java>		 	
+	</target>
+
+	<target name="run-client3" depends="build">		
+		<java fork="true" classname="test.TestClient3">
+			<arg value="localhost"/>
+			<arg value="7008"/>
+			<arg value="7519"/>
+			<classpath> 
+				<pathelement location="lib/log4j-1.2.12.jar"/> 
+				<pathelement path="classes"/>
+			</classpath>
+		</java>		 	
+	</target>
+	
+</project> 
