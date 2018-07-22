@@ -34,6 +34,12 @@ Client connected to the network. However, the Main Node will have a fixed public
 
 * Apache ANT for deployment
 
+In order to run the application:
+	./ ant build
+	./ ant run-server
+	./ ant run-client1[run-client2, run-client3]
+	./ ant clean
+
 
 ## Architecture
 
